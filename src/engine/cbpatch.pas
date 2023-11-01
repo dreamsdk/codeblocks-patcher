@@ -460,14 +460,16 @@ begin
     Result := Result and PatchTextFile(
       Settings.InstallationDirectory + COMPILER_FILE,
       DREAMSDK_HOME_VARIABLE,
-      Settings.HomeDirectory
+      Settings.HomeDirectory,
+      ptfbAlwaysPatch
     );
 
     // Update Options file with DREAMSDK_HOME
     Result :=  Result and PatchTextFile(
       Settings.InstallationDirectory + OPTIONS_FILE,
       DREAMSDK_HOME_VARIABLE,
-      Settings.HomeDirectory
+      Settings.HomeDirectory,
+      ptfbAlwaysPatch
     );
 
     // DreamSDK Manager will export library info while installing KOS Ports
