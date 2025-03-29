@@ -127,7 +127,7 @@ type
     function Execute: Boolean;
 
 {$IFDEF HELPER}
-    procedure ResetProfiles;
+    function ResetProfiles: Boolean;
 {$ENDIF}
 
     // Is the Patcher ready to execute?
@@ -310,9 +310,9 @@ end;
 
 {$IFDEF HELPER}
 
-procedure TCodeBlocksPatcher.ResetProfiles;
+function TCodeBlocksPatcher.ResetProfiles: Boolean;
 begin
-  TaskCleanCodeBlocksConfiguration;
+  Result := TaskCleanCodeBlocksConfiguration;
 end;
 
 {$ENDIF}
