@@ -14,6 +14,7 @@ uses
   RefBase,
   Version,
   SysTools,
+  StrTools,
   CBPatch,
   CBTools,
   XmlTools,

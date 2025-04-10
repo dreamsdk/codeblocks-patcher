@@ -175,6 +175,7 @@ implementation
 
 uses
   SysTools,
+  StrTools,
   RefBase,
   Version,
   RunTools,

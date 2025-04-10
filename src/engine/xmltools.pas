@@ -36,7 +36,8 @@ function SanitizeXPath(const DomRootPath, XPathExpression: string): string;
 implementation
 
 uses
-  SysTools;
+  SysTools,
+  StrTools;
 
 const
   DOM_ROOT_PATH = '/CodeBlocksConfig';
