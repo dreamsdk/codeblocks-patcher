@@ -27,7 +27,7 @@
       <MajorVersionNr Value="2"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="959"/>
+      <BuildNr Value="975"/>
       <StringTable Comments="https://dreamsdk.org/" CompanyName="The DreamSDK Team" FileDescription="Code::Blocks Patcher for DreamSDK" InternalName="codeblocks-patcher" LegalCopyright="© Copyleft 2018-2023" LegalTrademarks="Code::Blocks is distributed under the GNU GPL3. 7-Zip Extra files are under the GNU LGPL license. Sega and Dreamcast are registered trademark of Sega Games Co., Ltd." OriginalFilename="codeblocks-patcher.exe" ProductName="DreamSDK" ProductVersion="3.0.4.2311"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -62,7 +62,7 @@
             <CustomOptions Value="-dRELEASE
 -dLZMA_SUPPORT
 -dDISABLE_REFBASE_WARNING
--dDISABLE_REFBASE_HOME_DIR_OVERRIDE
+-dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE
 -dDISABLE_REFBASE_FAILSAFE
 -dENABLE_CBTOOLS_SAVE_CB_VERSION"/>
           </Other>
@@ -74,13 +74,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--operation=install --verbose"/>
+        <CommandLineParams Value="--operation=install --home-dir=&quot;C:\DreamSDK&quot; --install-dir=&quot;C:\Program Files\CodeBlocks&quot; --backup-dir=&quot;C:\DreamSDK\support\ide\codeblocks&quot; --no-logo --verbose"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--operation=install --verbose"/>
+            <CommandLineParams Value="--operation=install --home-dir=&quot;C:\DreamSDK&quot; --install-dir=&quot;C:\Program Files\CodeBlocks&quot; --backup-dir=&quot;C:\DreamSDK\support\ide\codeblocks&quot; --no-logo --verbose"/>
           </local>
         </Mode0>
       </Modes>
@@ -163,7 +163,7 @@
       <CustomOptions Value="-dDEBUG
 -dLZMA_SUPPORT
 -dDISABLE_REFBASE_WARNING
--dDISABLE_REFBASE_HOME_DIR_OVERRIDE
+-dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE
 -dDISABLE_REFBASE_FAILSAFE
 -dENABLE_CBTOOLS_SAVE_CB_VERSION"/>
     </Other>
