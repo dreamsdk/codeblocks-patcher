@@ -27,7 +27,7 @@
       <MajorVersionNr Value="2"/>
       <MinorVersionNr Value="1"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="975"/>
+      <BuildNr Value="976"/>
       <StringTable Comments="https://dreamsdk.org/" CompanyName="The DreamSDK Team" FileDescription="Code::Blocks Patcher for DreamSDK" InternalName="codeblocks-patcher" LegalCopyright="© Copyleft 2018-2023" LegalTrademarks="Code::Blocks is distributed under the GNU GPL3. 7-Zip Extra files are under the GNU LGPL license. Sega and Dreamcast are registered trademark of Sega Games Co., Ltd." OriginalFilename="codeblocks-patcher.exe" ProductName="DreamSDK" ProductVersion="3.0.4.2311"/>
     </VersionInfo>
     <BuildModes Count="2">
