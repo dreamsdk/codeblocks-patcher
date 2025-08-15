@@ -32,7 +32,7 @@
 			</NAME>
 			<COMMAND>
 				<str>
-					<![CDATA[{app}\msys\1.0\opt\dreamsdk\dreamsdk-shell.exe]]>
+					<![CDATA[{msys}\opt\dreamsdk\dreamsdk-shell.exe]]>
 				</str>
 			</COMMAND>
 			<PARAMS>
@@ -55,7 +55,7 @@
 			</NAME>
 			<COMMAND>
 				<str>
-					<![CDATA[{app}\msys\1.0\opt\dreamsdk\dreamsdk-manager.exe]]>
+					<![CDATA[{msys}\opt\dreamsdk\dreamsdk-manager.exe]]>
 				</str>
 			</COMMAND>
 			<PARAMS>
@@ -65,7 +65,7 @@
 			</PARAMS>
 			<WORKINGDIR>
 				<str>
-					<![CDATA[{app}\msys\1.0\opt\dreamsdk\]]>
+					<![CDATA[{msys}\opt\dreamsdk\]]>
 				</str>
 			</WORKINGDIR>
 			<LAUNCHOPTION int="3" />

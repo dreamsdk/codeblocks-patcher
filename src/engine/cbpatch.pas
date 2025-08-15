@@ -82,7 +82,7 @@ type
     procedure SetOperation(AValue: TCodeBlocksPatcherOperation);
     procedure FixSection(const CodeBlocksConfigurationFileName: TFileName;
       const SectionName, ItemName, ItemFormat: string; const StartIndex: Integer);
-    procedure HandleBaseDirectory(
+    procedure HandleDynamicDirectories(
       const CodeBlocksConfigurationFileName: TFileName);
     function Merge(const CodeBlocksConfigurationFileName: TFileName;
       SourceKind: TSourceKind): Boolean;
@@ -181,7 +181,7 @@ uses
   RunTools,
   XmlTools,
   SevenZip,
-  CBTools;
+  CBVerInf;
 
 {$IFNDEF LITE_VERSION}
 type
@@ -194,10 +194,12 @@ type
 
 const
   DREAMSDK_HOME_VARIABLE = '{app}';
+  DREAMSDK_MSYS_VARIABLE = '{msys}';
   SEPARATOR_NAME = '---separator---';
 
 {$IFNDEF LITE_VERSION}
-  CODEBLOCKS_PATCHER_FILES: array [0..2] of TCodeBlocksPatcherFile = (
+  CODEBLOCKS_PATCHER_FILES:
+    array [0..CODEBLOCKS_MAX_SUPPORTED_VERSION - 1] of TCodeBlocksPatcherFile = (
     (
       FileName: 'codeblocks-17.12-dreamsdk-addon-bin-x86.7z';
       ResourceName: 'PACKAGE1712';
@@ -212,6 +214,16 @@ const
       FileName: 'codeblocks-20.03-dreamsdk-addon-bin-x64.7z';
       ResourceName: 'PACKAGE2003X64';
       Version: cbv2003x64
+    ),
+    (
+      FileName: 'codeblocks-25.03-dreamsdk-addon-bin-x86.7z';
+      ResourceName: 'PACKAGE2503X86';
+      Version: cbv2503x86
+    ),
+    (
+      FileName: 'codeblocks-25.03-dreamsdk-addon-bin-x64.7z';
+      ResourceName: 'PACKAGE2503X64';
+      Version: cbv2503x64
     )
   );
 {$ENDIF}
@@ -377,7 +389,7 @@ begin
   end;
 end;
 
-procedure TCodeBlocksPatcher.HandleBaseDirectory(
+procedure TCodeBlocksPatcher.HandleDynamicDirectories(
   const CodeBlocksConfigurationFileName: TFileName);
 var
   Buffer: TStringList;
@@ -388,6 +400,8 @@ begin
     Buffer.LoadFromFile(CodeBlocksConfigurationFileName);
     Buffer.Text := StringReplace(Buffer.Text, DREAMSDK_HOME_VARIABLE,
       Settings.HomeDirectory, [rfReplaceAll]);
+    Buffer.Text := StringReplace(Buffer.Text, DREAMSDK_MSYS_VARIABLE,
+      Settings.MSysDirectory, [rfReplaceAll]);
     Buffer.SaveToFile(CodeBlocksConfigurationFileName);
   finally
     Buffer.Free;
@@ -404,6 +418,7 @@ var
   CodeBlocksPatchFileName: TFileName;
   CodeBlocksVersion: TCodeBlocksVersion;
   CodeBlocksDetectedVersion: string;
+  Patch1, Patch2: Boolean;
 
   procedure RetrieveCodeBlocksPatchFileInformation;
   var
@@ -445,33 +460,95 @@ begin
 
     // Backup original C::B files
     Result := BackupFiles;
+{$IFDEF DEBUG}
+    DebugLog(Format('Backup Files: %s', [BoolToStr(Result, True)]));
+{$ENDIF}
 
     // Unpack the patched C::B files
     Result := Result and UncompressLzmaFile(CodeBlocksPatchFileName,
       Settings.InstallationDirectory);
+{$IFDEF DEBUG}
+    DebugLog(Format('Uncompress LZMA File: %s', [BoolToStr(Result, True)]));
+{$ENDIF}
 
     // Saving the C::B version to the installation path - and mark as "patched"
     if Result then
+    begin
       SaveCodeBlocksVersionToInstallationDirectory(
         CodeBlocksVersion,
         Settings.InstallationDirectory
       );
+{$IFDEF DEBUG}
+      DebugLog(Format('Executing SaveCodeBlocksVersionToInstallationDirectory: CodeBlocksVersion: "%s", InstallationDirectory: "%s"', [
+        CodeBlocksVersionToString(CodeBlocksVersion),
+        Settings.InstallationDirectory
+      ]));
+{$ENDIF}
+    end;
 
     // Update Compiler file with DREAMSDK_HOME
-    Result := Result and PatchTextFile(
+    Patch1 := PatchTextFile(
       Settings.InstallationDirectory + COMPILER_FILE,
       DREAMSDK_HOME_VARIABLE,
       Settings.HomeDirectory,
       ptfbAlwaysPatch
     );
+{$IFDEF DEBUG}
+    DebugLog(Format('PatchTextFile: Target: "%s", Variable: "%s", Result: "%s"', [
+      COMPILER_FILE,
+      DREAMSDK_HOME_VARIABLE,
+      BoolToStr(Patch1, True)
+    ]));
+{$ENDIF}
+
+    Patch2 := PatchTextFile(
+      Settings.InstallationDirectory + COMPILER_FILE,
+      DREAMSDK_MSYS_VARIABLE,
+      Settings.MSysDirectory,
+      ptfbAlwaysPatch
+    );
+{$IFDEF DEBUG}
+    DebugLog(Format('PatchTextFile: Target: "%s", Variable: "%s", Result: "%s"', [
+      COMPILER_FILE,
+      DREAMSDK_MSYS_VARIABLE,
+      BoolToStr(Patch2, True)
+    ]));
+{$ENDIF}
+
+    // COMPILER_FILE needs to be patched...
+    Result := Result and (Patch1 or Patch2);
 
     // Update Options file with DREAMSDK_HOME
-    Result :=  Result and PatchTextFile(
+    Patch1 := PatchTextFile(
       Settings.InstallationDirectory + OPTIONS_FILE,
       DREAMSDK_HOME_VARIABLE,
       Settings.HomeDirectory,
       ptfbAlwaysPatch
     );
+{$IFDEF DEBUG}
+    DebugLog(Format('PatchTextFile: Target: "%s", Variable: "%s", Result: "%s"', [
+      OPTIONS_FILE,
+      DREAMSDK_HOME_VARIABLE,
+      BoolToStr(Patch1, True)
+    ]));
+{$ENDIF}
+
+    Patch2 := PatchTextFile(
+      Settings.InstallationDirectory + OPTIONS_FILE,
+      DREAMSDK_MSYS_VARIABLE,
+      Settings.MSysDirectory,
+      ptfbAlwaysPatch
+    );
+{$IFDEF DEBUG}
+    DebugLog(Format('PatchTextFile: Target: "%s", Variable: "%s", Result: "%s"', [
+      OPTIONS_FILE,
+      DREAMSDK_MSYS_VARIABLE,
+      BoolToStr(Patch2, True)
+    ]));
+{$ENDIF}
+
+    // OPTIONS_FILE needs to be patched...
+    Result := Result and (Patch1 or Patch2);
 
     // DreamSDK Manager will export library info while installing KOS Ports
     Settings.ExportLibraryInformation := True;
@@ -714,7 +791,7 @@ begin
     // When uninstalling, override supplied parameters with the proper one from
     // the DreamSDK configuration (if possible)
     if (Operation <> pmInstall) then
-      Settings.LoadConfiguration;
+      Settings.LoadConfiguration(True);
   end;
 end;
 
@@ -733,17 +810,55 @@ begin
 end;
 
 procedure TCodeBlocksPatcher.DoPatchInstall;
+var
+  Step: Boolean;
+
 begin
-  if ExecuteTask('Patching Code::Blocks installation directory', @TaskInstallCodeBlocksPatch) then
-    if ExecuteTask('Patching Code::Blocks configuration file', @TaskPatchCodeBlocksConfiguration) then
-      ExecuteTask('Updating the DreamSDK configuration file', @TaskUpdateConfigurationInstall);
+  Step := ExecuteTask('Patching Code::Blocks installation directory', @TaskInstallCodeBlocksPatch);
+{$IFDEF DEBUG}
+  DebugLog(Format('STEP 1/3: %s', [BoolToStr(Step, True)]));
+{$ENDIF}
+  if not Step then
+    Exit;
+
+  Step := ExecuteTask('Patching Code::Blocks configuration file', @TaskPatchCodeBlocksConfiguration);
+{$IFDEF DEBUG}
+  DebugLog(Format('STEP 2/3: %s', [BoolToStr(Step, True)]));
+{$ENDIF}
+  if not Step then
+    Exit;
+
+  Step := ExecuteTask('Updating the DreamSDK configuration file', @TaskUpdateConfigurationInstall);
+{$IFDEF DEBUG}
+  DebugLog(Format('STEP 3/3: %s', [BoolToStr(Step, True)]));
+{$ENDIF}
 end;
 
 procedure TCodeBlocksPatcher.DoPatchUninstall;
+var
+  Step: Boolean;
+
 begin
-  if ExecuteTask('Restoring Code::Blocks installation directory', @TaskUninstallCodeBlocksPatch) then
-    if ExecuteTask('Cleaning up Code::Blocks configuration file', @TaskCleanCodeBlocksConfiguration) then
-      ExecuteTask('Updating the DreamSDK configuration file', @TaskUpdateConfigurationUninstall);
+  Step := ExecuteTask('Restoring Code::Blocks installation directory', @TaskUninstallCodeBlocksPatch);
+{$IFDEF DEBUG}
+  DebugLog(Format('STEP 1/3: %s', [BoolToStr(Step, True)]));
+{$ENDIF}
+  if not Step then
+    Exit;
+
+  Step := ExecuteTask('Cleaning up Code::Blocks configuration file', @TaskCleanCodeBlocksConfiguration);
+{$IFDEF DEBUG}
+  DebugLog(Format('STEP 1/3: %s', [BoolToStr(Step, True)]));
+{$ENDIF}
+  if not Step then
+    Exit;
+
+  Step := ExecuteTask('Updating the DreamSDK configuration file', @TaskUpdateConfigurationUninstall);
+{$IFDEF DEBUG}
+  DebugLog(Format('STEP 1/3: %s', [BoolToStr(Step, True)]));
+{$ENDIF}
+  if not Step then
+    Exit;
 end;
 
 procedure TCodeBlocksPatcher.FixTools(
@@ -954,7 +1069,7 @@ begin
     end;
 
     // Handle the DREAMSDK_HOME_VARIABLE variable representing the DreamSDK home base directory.
-    HandleBaseDirectory(CodeBlocksConfigurationFileName);
+    HandleDynamicDirectories(CodeBlocksConfigurationFileName);
 
     // Reformat the indentation of the XML.
     ReformatXML(CodeBlocksConfigurationFileName);
@@ -1055,14 +1170,29 @@ var
   Switch,
   Buffer,
   BackupForceSwitch: string;
+  ForceSwitchRequired,
+  CodeBlocksPatched: Boolean;
 
 begin
   Switch := '/B';
   if Operation = cbRestore then
     Switch := '/R';
 
+  ForceSwitchRequired := (Operation = cbBackup) and (not Settings.Installed);
+  CodeBlocksPatched := IsCodeBlocksFilesPatched(Settings.InstallationDirectory);
+
+  if ForceSwitchRequired and CodeBlocksPatched then
+    begin
+      // Backup not required
+{$IFDEF DEBUG}
+      DebugLog('*** BACKUP IS NOT REQUIRED ***');
+{$ENDIF}
+      Result := True;
+      Exit;
+    end;
+
   BackupForceSwitch := EmptyStr;
-  if (Operation = cbBackup) and (not Settings.Installed) then
+  if ForceSwitchRequired then
   begin
 {$IFDEF DEBUG}
     DebugLog('RunCodeBlocksBackupRestore: Backup is forced');

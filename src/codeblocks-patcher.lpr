@@ -579,7 +579,7 @@ begin
 {$IFDEF DEBUG}
       DebugLog('Setting up HomeDirectory: ' + HomeDirectory);
 {$ENDIF}
-      LoadConfiguration;
+      LoadConfiguration(True);
     end;
 
     // Code::Blocks Installation Directory

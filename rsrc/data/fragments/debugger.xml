@@ -12,7 +12,7 @@
 					<values>
 						<EXECUTABLE_PATH>
 							<str>
-								<![CDATA[{app}\msys\1.0\opt\toolchains\dc\sh-elf\bin\sh-elf-gdb.exe]]>
+								<![CDATA[{msys}\opt\toolchains\dc\sh-elf\bin\sh-elf-gdb.exe]]>
 							</str>
 						</EXECUTABLE_PATH>
 						<DISABLE_INIT bool="1" />
@@ -41,7 +41,7 @@
 						</INSTRUCTION_SET>
 						<LOADER_EXECUTABLE_PATH>
 							<str>
-								<![CDATA[{app}\msys\1.0\opt\dreamsdk\ide\dc-tool.cmd]]>
+								<![CDATA[{msys}\opt\dreamsdk\ide\dc-tool.cmd]]>
 							</str>
 						</LOADER_EXECUTABLE_PATH>
 						<LOADER_ARGUMENTS>

@@ -1,6 +1,8 @@
 PACKAGE1712        RCDATA         "embedded\\packages\\codeblocks-17.12-dreamsdk-addon-bin-x86.7z"
 PACKAGE2003X86     RCDATA         "embedded\\packages\\codeblocks-20.03-dreamsdk-addon-bin-x86.7z"
 PACKAGE2003X64     RCDATA         "embedded\\packages\\codeblocks-20.03-dreamsdk-addon-bin-x64.7z"
+PACKAGE2503X86     RCDATA         "embedded\\packages\\codeblocks-25.03-dreamsdk-addon-bin-x86.7z"
+PACKAGE2503X64     RCDATA         "embedded\\packages\\codeblocks-25.03-dreamsdk-addon-bin-x64.7z"
 CONFIG             RCDATA         "embedded\\codeblocks-patcher-data.zip"
 BACKUPRESTORE      RCDATA         "embedded\\codeblocks-backup-restore.cmd"
 SPLASH             RCDATA         "embedded\\codeblocks-splash.exe"
