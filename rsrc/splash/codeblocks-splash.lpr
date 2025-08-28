@@ -59,10 +59,6 @@ begin
 
     // Mandatory: Process ID of Code::Blocks Patcher
     ParentProcessId := StrToIntDef(ParamStr(2), 0);
-
-    // Optional: DreamSDK Manager Window Handle
-    if (ParamCount > 2) then
-      FormHandle := StrToIntDef(ParamStr(3), 0);
   end;
 end;
 
@@ -86,9 +82,6 @@ begin
     frmMain := TfrmMain.Create(Application);
     frmMain.Caption := FORM_TITLE;
     frmMain.ParentProcessId := ParentProcessId;
-
-    if FormHandle <> INVALID_HANDLE_VALUE then
-      frmMain.ParentWindow := FormHandle;
 
     case Operation of
       soInstall:

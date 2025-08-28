@@ -10,7 +10,7 @@ unit CBPatch;
 
 interface
 
-uses
+uses  
   Classes,
   SysUtils,
   DOM,
@@ -64,7 +64,7 @@ type
     fProcessEnd: TTerminateEvent;
     fOperation: TCodeBlocksPatcherOperation;
     fProcessTaskBegin: TTaskBeginEvent;
-    fProcessTaskEnd: TTaskEndEvent;
+    fProcessTaskEnd: TTaskEndEvent;    
     fVisibleSplash: Boolean;
     procedure ExtractEmbeddedFiles;
     procedure FixTools(const CodeBlocksConfigurationFileName: TFileName);
@@ -1221,39 +1221,39 @@ end;
 function TCodeBlocksPatcher.RunCodeBlocksSplash(
   const Operation: TCodeBlocksSplashOperation): Boolean;
 var
-  AdditionalSwitch: string;
+  SplashCommandLine: string;
   ExecWait: Boolean;
 
 begin
-  AdditionalSwitch := '';
+  SplashCommandLine := '';
   ExecWait := False;
 
   case Operation of
-    soInstall: AdditionalSwitch := 'install';
-    soUninstall: AdditionalSwitch := 'uninstall';
-    soReinstall: AdditionalSwitch := 'reinstall';
+    soInstall: SplashCommandLine := 'install';
+    soUninstall: SplashCommandLine := 'uninstall';
+    soReinstall: SplashCommandLine := 'reinstall';
     soClose:
       begin
-        AdditionalSwitch := 'close';
+        SplashCommandLine := 'close';
         ExecWait := True;
       end;
   end;
 
-  AdditionalSwitch := AdditionalSwitch + ' ' + IntToStr(GetProcessID);
-
+  SplashCommandLine := SplashCommandLine + ' ' + IntToStr(GetProcessID);
+   
   if ExecWait then
   begin
 {$IFDEF DEBUG}
     DebugLog('RunAndWait for ' + AdditionalSwitch);
 {$ENDIF}
-    Result := RunAndWait(fCodeBlocksSplashFileName, AdditionalSwitch)
+    Result := RunAndWait(fCodeBlocksSplashFileName, SplashCommandLine)
   end
   else
   begin
 {$IFDEF DEBUG}
     DebugLog('RunNoWait for ' + AdditionalSwitch);
 {$ENDIF}
-    Result := RunNoWait(fCodeBlocksSplashFileName, AdditionalSwitch);
+    Result := RunNoWait(fCodeBlocksSplashFileName, SplashCommandLine);
   end;
 
 {$IFDEF DEBUG}
