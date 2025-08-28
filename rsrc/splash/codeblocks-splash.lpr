@@ -18,10 +18,10 @@ uses
 {$R *.res}
 
 const
-  CLOSE_SWITCH = '/CLOSE';
-  INSTALL_SWITCH = '/INSTALL';
-  REINSTALL_SWITCH = '/REINSTALL';
-  UNINSTALL_SWITCH = '/UNINSTALL';
+  CLOSE_SWITCH = 'CLOSE';
+  INSTALL_SWITCH = 'INSTALL';
+  REINSTALL_SWITCH = 'REINSTALL';
+  UNINSTALL_SWITCH = 'UNINSTALL';
 
   FORM_TITLE = 'Code::Blocks Splash Application for DreamSDK';
   PANEL_INSTALL_CAPTION = 'Setting up Code::Blocks';
@@ -32,8 +32,9 @@ type
   TCodeBlocksSplashOperation = (soUnknown, soInstall, soUninstall, soReinstall, soClose);
 
 var
-  FormHandle: THandle;
-  Operation: TCodeBlocksSplashOperation;
+  ParentProcessId: LongWord = 0;
+  FormHandle: THandle = INVALID_HANDLE_VALUE;
+  Operation: TCodeBlocksSplashOperation = soUnknown;
 
 function ParseCommandLine: Boolean;
 var
@@ -41,9 +42,11 @@ var
 
 begin
   Operation := soUnknown;
-  Result := (ParamCount > 0);
+
+  Result := (ParamCount > 1);
   if Result then
   begin
+    // Mandatory: Label to display
     Parameter := UpperCase(ParamStr(1));
     if SameText(Parameter, CLOSE_SWITCH) then
       Operation := soClose
@@ -53,11 +56,17 @@ begin
       Operation := soReinstall
     else if SameText(Parameter, UNINSTALL_SWITCH) then
       Operation := soUninstall;
+
+    // Mandatory: Process ID of Code::Blocks Patcher
+    ParentProcessId := StrToIntDef(ParamStr(2), 0);
+
+    // Optional: DreamSDK Manager Window Handle
+    if (ParamCount > 2) then
+      FormHandle := StrToIntDef(ParamStr(3), 0);
   end;
 end;
 
 begin
-  Operation := soUnknown;
   if not ParseCommandLine then
     Exit;
 
@@ -72,10 +81,14 @@ begin
   else
   begin
     RequireDerivedFormResource := True;
-  Application.Scaled:=True;
+    Application.Scaled := True;
     Application.Initialize;
     frmMain := TfrmMain.Create(Application);
     frmMain.Caption := FORM_TITLE;
+    frmMain.ParentProcessId := ParentProcessId;
+
+    if FormHandle <> INVALID_HANDLE_VALUE then
+      frmMain.ParentWindow := FormHandle;
 
     case Operation of
       soInstall:

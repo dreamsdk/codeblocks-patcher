@@ -1229,15 +1229,17 @@ begin
   ExecWait := False;
 
   case Operation of
-    soInstall: AdditionalSwitch := '/install';
-    soUninstall: AdditionalSwitch := '/uninstall';
-    soReinstall: AdditionalSwitch := '/reinstall';
+    soInstall: AdditionalSwitch := 'install';
+    soUninstall: AdditionalSwitch := 'uninstall';
+    soReinstall: AdditionalSwitch := 'reinstall';
     soClose:
       begin
-        AdditionalSwitch := '/close';
+        AdditionalSwitch := 'close';
         ExecWait := True;
       end;
   end;
+
+  AdditionalSwitch := AdditionalSwitch + ' ' + IntToStr(GetProcessID);
 
   if ExecWait then
   begin

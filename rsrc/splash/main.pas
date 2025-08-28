@@ -13,12 +13,19 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
+    pnlImage: TImage;
+    pnlImageContainer: TPanel;
     pnlSplash: TPanel;
     pnlSplashBack: TPanel;
     pbWait: TProgressBar;
+    tmrParentWatchDog: TTimer;
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+    procedure tmrParentWatchDogTimer(Sender: TObject);
   private
+    fParentProcessId: LongWord;
   public
+    property ParentProcessId: LongWord
+      read fParentProcessId write fParentProcessId;
   end;
 
 var
@@ -39,6 +46,15 @@ procedure TfrmMain.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   Delay(1500);
   Application.Terminate;
+end;
+
+procedure TfrmMain.tmrParentWatchDogTimer(Sender: TObject);
+begin
+  if not IsProcessRunning(ParentProcessId) then
+  begin
+    tmrParentWatchDog.Enabled := False;
+    Close;
+  end;
 end;
 
 procedure SetPanelText(const Message: string);

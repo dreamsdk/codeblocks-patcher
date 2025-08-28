@@ -61,13 +61,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="/reinstall"/>
+        <CommandLineParams Value="reinstall 5804"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="/reinstall"/>
+            <CommandLineParams Value="reinstall 5804"/>
           </local>
         </Mode0>
       </Modes>

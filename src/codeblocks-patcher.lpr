@@ -16,6 +16,7 @@ uses
   SysTools,
   StrTools,
   CBPatch,
+  CBVerInf,
   CBTools,
   XmlTools,
   Settings;
@@ -635,9 +636,11 @@ end;
 procedure TCodeBlocksPatcherApplication.WriteHelp;
 var
   DefaultBackupDirectory: TFileName;
+  CodeBlocksVersions: string;
 
 begin
   DefaultBackupDirectory := GetDefaultCodeBlocksBackupDirectory;
+  CodeBlocksVersions := string.Join(', ', GetCodeBlocksSupportedVersions);
 
   WriteLn('Usage:', sLineBreak,
     '  ', ProgramName, ' --operation=<install, uninstall, ...> [options]', sLineBreak,
@@ -702,7 +705,8 @@ begin
     '    Remove completely the Code::Blocks patch for DreamSDK.', sLineBreak,
     sLineBreak,
     'Note:', sLineBreak,
-    '  This patcher was made for Code::Blocks 17.12 or 20.03 stable releases only.', sLineBreak,
+    '  This patcher was made only for Code::Blocks stable releases: ', sLineBreak,
+    '    ', CodeBlocksVersions, sLineBreak,
     '  It is NOT affiliated with the Code::Blocks Team in any way.', sLineBreak,
     sLineBreak,
     'Hint: ', sLineBreak,
