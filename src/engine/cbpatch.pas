@@ -1244,14 +1244,14 @@ begin
   if ExecWait then
   begin
 {$IFDEF DEBUG}
-    DebugLog('RunAndWait for ' + AdditionalSwitch);
+    DebugLog('RunAndWait for ' + SplashCommandLine);
 {$ENDIF}
     Result := RunAndWait(fCodeBlocksSplashFileName, SplashCommandLine)
   end
   else
   begin
 {$IFDEF DEBUG}
-    DebugLog('RunNoWait for ' + AdditionalSwitch);
+    DebugLog('RunNoWait for ' + SplashCommandLine);
 {$ENDIF}
     Result := RunNoWait(fCodeBlocksSplashFileName, SplashCommandLine);
   end;

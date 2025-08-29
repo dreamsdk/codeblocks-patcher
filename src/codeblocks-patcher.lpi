@@ -27,7 +27,7 @@
       <MajorVersionNr Value="2" />
       <MinorVersionNr Value="1" />
       <RevisionNr Value="3" />
-      <BuildNr Value="993" />
+      <BuildNr Value="995" />
       <StringTable Comments="https://dreamsdk.org/" CompanyName="The DreamSDK Team" FileDescription="Code::Blocks Patcher for DreamSDK" InternalName="codeblocks-patcher" LegalCopyright="© Copyleft 2018-2025" LegalTrademarks="Code::Blocks is distributed under the GNU GPL3. 7-Zip Extra files are under the GNU LGPL license. Sega and Dreamcast are registered trademark of Sega Games Co., Ltd." OriginalFilename="codeblocks-patcher.exe" ProductName="DreamSDK" ProductVersion="4.0.11.2508" />
     </VersionInfo>
     <BuildModes Count="2">
@@ -61,6 +61,9 @@
           </Linking>
           <Other>
             <CustomOptions Value="-dRELEASE -dLZMA_SUPPORT -dDISABLE_REFBASE_WARNING -dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE -dDISABLE_REFBASE_FAILSAFE -dENABLE_CBTOOLS_SAVE_CB_VERSION" />
+            <ExecuteBefore>
+              <Command Value="..\rsrc\prebuild.cmd" />
+            </ExecuteBefore>
           </Other>
         </CompilerOptions>
       </Item2>
@@ -157,6 +160,9 @@
         <ShowUsedFiles Value="True" />
       </Verbosity>
       <CustomOptions Value="-dDEBUG -dLZMA_SUPPORT -dDISABLE_REFBASE_WARNING -dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE -dDISABLE_REFBASE_FAILSAFE -dENABLE_CBTOOLS_SAVE_CB_VERSION" />
+      <ExecuteBefore>
+        <Command Value="..\rsrc\prebuild.cmd" />
+      </ExecuteBefore>
     </Other>
   </CompilerOptions>
 </CONFIG>

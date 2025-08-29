@@ -18,10 +18,11 @@ for /f "tokens=*" %%i in (%CONFIG_FILE%) do (
 )
 
 :process
-echo Making Data Embedded...
-set "OUTPUT_FILE=%BASE_DIR%\..\src\engine\embedded\codeblocks-patcher-data.zip"
+echo Making Splash Binary...
+set "OUTPUT_FILE=%BASE_DIR%\..\src\engine\embedded\codeblocks-splash.exe"
 if exist %OUTPUT_FILE% del %OUTPUT_FILE%
-"%SEVENZIP%" a -bb0 -mx9 %OUTPUT_FILE% "%BASE_DIR%\data\*"
+"%LAZBUILD%" "%BASE_DIR%\splash\codeblocks-splash.lpi" --build-mode="Release" --cpu=i386 --operating-system=win32 --quiet
+"%UPXPACK%" -9 %OUTPUT_FILE%
 if "+%INTERACTIVE%"=="+1" pause
 
 :exit
