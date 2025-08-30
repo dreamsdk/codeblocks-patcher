@@ -1,167 +1,167 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="12"/>
-    <PathDelim Value="\"/>
+    <Version Value="12" />
+    <PathDelim Value="\" />
     <General>
       <Flags>
-        <MainUnitHasCreateFormStatements Value="False"/>
-        <MainUnitHasTitleStatement Value="False"/>
-        <MainUnitHasScaledStatement Value="False"/>
-        <CompatibilityMode Value="True"/>
+        <MainUnitHasCreateFormStatements Value="False" />
+        <MainUnitHasTitleStatement Value="False" />
+        <MainUnitHasScaledStatement Value="False" />
+        <CompatibilityMode Value="True" />
       </Flags>
-      <SessionStorage Value="InProjectDir"/>
-      <Title Value="Code::Blocks Patcher for DreamSDK"/>
-      <UseAppBundle Value="False"/>
-      <ResourceType Value="res"/>
-      <UseXPManifest Value="True"/>
+      <SessionStorage Value="InProjectDir" />
+      <Title Value="Code::Blocks Patcher for DreamSDK" />
+      <UseAppBundle Value="False" />
+      <ResourceType Value="res" />
+      <UseXPManifest Value="True" />
       <XPManifest>
-        <ExecutionLevel Value="requireAdministrator"/>
-        <TextName Value="DreamSDK.CodeBlocksPatcher"/>
-        <TextDesc Value="Code::Blocks Patcher for DreamSDK"/>
+        <ExecutionLevel Value="requireAdministrator" />
+        <TextName Value="DreamSDK.CodeBlocksPatcher" />
+        <TextDesc Value="Code::Blocks Patcher for DreamSDK" />
       </XPManifest>
     </General>
     <VersionInfo>
-      <UseVersionInfo Value="True"/>
-      <AutoIncrementBuild Value="True"/>
-      <MajorVersionNr Value="2"/>
-      <MinorVersionNr Value="1"/>
-      <RevisionNr Value="3"/>
-      <BuildNr Value="996"/>
-      <StringTable Comments="https://dreamsdk.org/" CompanyName="The DreamSDK Team" FileDescription="Code::Blocks Patcher for DreamSDK" InternalName="codeblocks-patcher" LegalCopyright="© Copyleft 2018-2025" LegalTrademarks="Code::Blocks is distributed under the GNU GPL3. 7-Zip Extra files are under the GNU LGPL license. Sega and Dreamcast are registered trademark of Sega Games Co., Ltd." OriginalFilename="codeblocks-patcher.exe" ProductName="DreamSDK" ProductVersion="4.0.11.2508"/>
+      <UseVersionInfo Value="True" />
+      <AutoIncrementBuild Value="True" />
+      <MajorVersionNr Value="2" />
+      <MinorVersionNr Value="1" />
+      <RevisionNr Value="3" />
+      <BuildNr Value="996" />
+      <StringTable Comments="https://dreamsdk.org/" CompanyName="The DreamSDK Team" FileDescription="Code::Blocks Patcher for DreamSDK" InternalName="codeblocks-patcher" LegalCopyright="© Copyleft 2018-2025" LegalTrademarks="Code::Blocks is distributed under the GNU GPL3. 7-Zip Extra files are under the GNU LGPL license. Sega and Dreamcast are registered trademark of Sega Games Co., Ltd." OriginalFilename="codeblocks-patcher.exe" ProductName="DreamSDK" ProductVersion="4.0.11.2508" />
     </VersionInfo>
     <BuildModes Count="2">
-      <Item1 Name="Debug" Default="True"/>
+      <Item1 Name="Debug" Default="True" />
       <Item2 Name="Release">
         <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
+          <Version Value="11" />
+          <PathDelim Value="\" />
           <Target>
-            <Filename Value="..\bin\codeblocks-patcher"/>
+            <Filename Value="..\bin\codeblocks-patcher" />
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\..\common\src\sys;..\..\..\common\src;engine"/>
-            <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)-$NameOnly($(ProjFile))"/>
+            <IncludeFiles Value="$(ProjOutDir)" />
+            <OtherUnitFiles Value="..\..\..\common\src\sys;..\..\..\common\src;engine" />
+            <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)-$NameOnly($(ProjFile))" />
           </SearchPaths>
           <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <TargetCPU Value="x86_64"/>
-            <TargetOS Value="win64"/>
+            <SmartLinkUnit Value="True" />
+            <TargetCPU Value="x86_64" />
+            <TargetOS Value="win64" />
             <Optimizations>
-              <OptimizationLevel Value="3"/>
+              <OptimizationLevel Value="3" />
             </Optimizations>
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <GenerateDebugInfo Value="False"/>
-              <DebugInfoType Value="dsDwarf2Set"/>
+              <GenerateDebugInfo Value="False" />
+              <DebugInfoType Value="dsDwarf2Set" />
             </Debugging>
-            <LinkSmart Value="True"/>
+            <LinkSmart Value="True" />
           </Linking>
           <Other>
-            <CustomOptions Value="-dRELEASE -dLZMA_SUPPORT -dDISABLE_REFBASE_WARNING -dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE -dDISABLE_REFBASE_FAILSAFE -dENABLE_CBTOOLS_SAVE_CB_VERSION"/>
+            <CustomOptions Value="-dRELEASE -dLZMA_SUPPORT -dDISABLE_REFBASE_WARNING -dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE -dDISABLE_REFBASE_FAILSAFE -dENABLE_CBTOOLS_SAVE_CB_VERSION" />
             <ExecuteBefore>
-              <Command Value="..\rsrc\prebuild.cmd"/>
+              <Command Value="..\rsrc\prebuild.cmd" />
             </ExecuteBefore>
           </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
     <PublishOptions>
-      <Version Value="2"/>
+      <Version Value="2" />
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--operation=install --home-dir=&quot;C:\DreamSDK&quot; --install-dir=&quot;C:\Program Files\CodeBlocks&quot; --backup-dir=&quot;C:\DreamSDK\support\ide\codeblocks&quot; --no-logo --verbose --show-splash"/>
+        <CommandLineParams Value="--operation=install --home-dir=&quot;C:\DreamSDK&quot; --install-dir=&quot;C:\Program Files\CodeBlocks&quot; --backup-dir=&quot;C:\DreamSDK\support\ide\codeblocks&quot; --no-logo --verbose --show-splash" />
       </local>
-      <FormatVersion Value="2"/>
+      <FormatVersion Value="2" />
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--operation=install --home-dir=&quot;C:\DreamSDK&quot; --install-dir=&quot;C:\Program Files\CodeBlocks&quot; --backup-dir=&quot;C:\DreamSDK\support\ide\codeblocks&quot; --no-logo --verbose --show-splash"/>
+            <CommandLineParams Value="--operation=install --home-dir=&quot;C:\DreamSDK&quot; --install-dir=&quot;C:\Program Files\CodeBlocks&quot; --backup-dir=&quot;C:\DreamSDK\support\ide\codeblocks&quot; --no-logo --verbose --show-splash" />
           </local>
         </Mode0>
       </Modes>
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="uniqueinstance_package"/>
+        <PackageName Value="uniqueinstance_package" />
       </Item1>
       <Item2>
-        <PackageName Value="LazUtils"/>
+        <PackageName Value="LazUtils" />
       </Item2>
     </RequiredPackages>
     <Units Count="5">
       <Unit0>
-        <Filename Value="codeblocks-patcher.lpr"/>
-        <IsPartOfProject Value="True"/>
+        <Filename Value="codeblocks-patcher.lpr" />
+        <IsPartOfProject Value="True" />
       </Unit0>
       <Unit1>
-        <Filename Value="engine\cbpatch.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="CBPatch"/>
+        <Filename Value="engine\cbpatch.pas" />
+        <IsPartOfProject Value="True" />
+        <UnitName Value="CBPatch" />
       </Unit1>
       <Unit2>
-        <Filename Value="engine\xmltools.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="XmlTools"/>
+        <Filename Value="engine\xmltools.pas" />
+        <IsPartOfProject Value="True" />
+        <UnitName Value="XmlTools" />
       </Unit2>
       <Unit3>
-        <Filename Value="engine\full.rc"/>
-        <IsPartOfProject Value="True"/>
+        <Filename Value="engine\full.rc" />
+        <IsPartOfProject Value="True" />
       </Unit3>
       <Unit4>
-        <Filename Value="engine\lite.rc"/>
-        <IsPartOfProject Value="True"/>
+        <Filename Value="engine\lite.rc" />
+        <IsPartOfProject Value="True" />
       </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="11"/>
-    <PathDelim Value="\"/>
+    <Version Value="11" />
+    <PathDelim Value="\" />
     <Target>
-      <Filename Value="..\bin\codeblocks-patcher"/>
+      <Filename Value="..\bin\codeblocks-patcher" />
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\common\src\sys;..\..\..\common\src;engine"/>
-      <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)-$NameOnly($(ProjFile))"/>
+      <IncludeFiles Value="$(ProjOutDir)" />
+      <OtherUnitFiles Value="..\..\..\common\src\sys;..\..\..\common\src;engine" />
+      <UnitOutputDirectory Value="..\lib\$(TargetCPU)-$(TargetOS)-$NameOnly($(ProjFile))" />
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
-        <IncludeAssertionCode Value="True"/>
+        <IncludeAssertionCode Value="True" />
       </SyntaxOptions>
     </Parsing>
     <CodeGeneration>
       <Checks>
-        <IOChecks Value="True"/>
-        <RangeChecks Value="True"/>
-        <OverflowChecks Value="True"/>
-        <StackChecks Value="True"/>
+        <IOChecks Value="True" />
+        <RangeChecks Value="True" />
+        <OverflowChecks Value="True" />
+        <StackChecks Value="True" />
       </Checks>
-      <VerifyObjMethodCallValidity Value="True"/>
-      <TargetCPU Value="i386"/>
+      <VerifyObjMethodCallValidity Value="True" />
+      <TargetCPU Value="i386" />
       <Optimizations>
-        <OptimizationLevel Value="0"/>
+        <OptimizationLevel Value="0" />
       </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>
-        <DebugInfoType Value="dsDwarf2Set"/>
-        <UseHeaptrc Value="True"/>
-        <TrashVariables Value="True"/>
-        <UseExternalDbgSyms Value="True"/>
+        <DebugInfoType Value="dsDwarf2Set" />
+        <UseHeaptrc Value="True" />
+        <TrashVariables Value="True" />
+        <UseExternalDbgSyms Value="True" />
       </Debugging>
     </Linking>
     <Other>
       <Verbosity>
-        <ShowDebugInfo Value="True"/>
-        <ShowUsedFiles Value="True"/>
+        <ShowDebugInfo Value="True" />
+        <ShowUsedFiles Value="True" />
       </Verbosity>
-      <CustomOptions Value="-dDEBUG -dLZMA_SUPPORT -dDISABLE_REFBASE_WARNING -dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE -dDISABLE_REFBASE_FAILSAFE -dENABLE_CBTOOLS_SAVE_CB_VERSION"/>
+      <CustomOptions Value="-dDEBUG -dLZMA_SUPPORT -dDISABLE_REFBASE_WARNING -dDISABLE_REFBASE_HOME_DIR_AUTO_OVERRIDE -dDISABLE_REFBASE_FAILSAFE -dENABLE_CBTOOLS_SAVE_CB_VERSION" />
       <ExecuteBefore>
-        <Command Value="..\rsrc\prebuild.cmd"/>
+        <Command Value="..\rsrc\prebuild.cmd" />
       </ExecuteBefore>
     </Other>
   </CompilerOptions>
